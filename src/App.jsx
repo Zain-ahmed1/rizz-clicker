@@ -63,12 +63,23 @@ function App() {
   }, [mewingProgress, mewingActive]);
 
   const handlePurchase = (character) => {
+    const characterIndex = characters.findIndex((char) => char.name === character.name);
+    const previousCharacter = characters[characterIndex - 1];
+
+    if (characterIndex > 0 && !ownedCharacters.includes(previousCharacter.name)) {
+      alert(`You must purchase ${previousCharacter.name} first!`);
+      return;
+    }
+
     if (totalRizz >= character.cost) {
       setTotalRizz((prev) => prev - character.cost);
       setOwnedCharacters((prev) => [...prev, character.name]);
       setActiveCharacter(character); // Automatically set the purchased character as active
+    } else {
+      alert("Not enough Rizz to purchase this character!");
     }
   };
+
 
   const handleSetActiveCharacter = (character) => {
     if (ownedCharacters.includes(character.name)) {
