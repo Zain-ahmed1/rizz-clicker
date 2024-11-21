@@ -2,11 +2,11 @@ import React from "react";
 
 const ProgressBar = ({ progress, mewingActive }) => {
     return (
-        <div className="w-64 bg-gray-300 rounded-full overflow-hidden mt-4">
+        <div className="w-20 -translate-y-1/2 h-[380px] absolute top-1/2 bg-[#695B59] rounded-full overflow-hidden mt-4">
             <div
-                className={`h-4 transition-all ${mewingActive ? "bg-blue-500" : "bg-green-500"
+                className={`absolute bottom-0 w-full h-full transition-all ${mewingActive ? "bg-blue-500" : "bg-green-500"
                     }`}
-                style={{ width: `${progress}%` }}
+                style={{ height: `${progress}%` }}
             ></div>
         </div>
     );

@@ -3,6 +3,7 @@ import RizzCounter from "./components/RizzCounter";
 import ProgressBar from "./components/ProgressBar";
 import CharacterList from "./components/CharacterList";
 import { characters } from "./Data";
+import CrowdCheer from "./../public/crowd-cheer.mp3"
 
 function App() {
   const [totalRizz, setTotalRizz] = useState(0);
@@ -17,30 +18,29 @@ function App() {
   const activatorTimeout = useRef(null);
   const decrementInterval = useRef(null);
 
-  // Handle Rizz generation
+  // Reference for audio element
+  const clapSoundRef = useRef(null);
+
   const handleClick = () => {
     setTotalRizz((prev) => prev + activeCharacter.rizzPerClick * multiplier);
 
-    // Start filling the progress bar
     setClicking(true);
     setMewingProgress((prev) =>
       Math.min(prev + 100 / (120 * 10), 100) // 2 minutes = 100%
     );
 
-    // Reset inactivity timeout
     if (clickTimeout.current) clearTimeout(clickTimeout.current);
 
     clickTimeout.current = setTimeout(() => {
       setClicking(false);
-    }, 300); // Detects inactivity after 300ms
+    }, 300);
   };
 
-  // Gradually decrease progress bar when not clicking
   useEffect(() => {
     if (!clicking && !mewingActive) {
       decrementInterval.current = setInterval(() => {
-        setMewingProgress((prev) => Math.max(prev - 0.5, 0)); // Reduce progress
-      }, 50); // Adjust speed of decrement as needed
+        setMewingProgress((prev) => Math.max(prev - 0.5, 0));
+      }, 50);
     } else {
       clearInterval(decrementInterval.current);
     }
@@ -48,17 +48,16 @@ function App() {
     return () => clearInterval(decrementInterval.current);
   }, [clicking, mewingActive]);
 
-  // Handle Mewing Activator
   useEffect(() => {
     if (mewingProgress >= 100 && !mewingActive) {
-      setMultiplier(2); // 2x multiplier
+      setMultiplier(2);
       setMewingActive(true);
 
       activatorTimeout.current = setTimeout(() => {
         setMultiplier(1);
         setMewingActive(false);
         setMewingProgress(0);
-      }, 30000); // 30 seconds
+      }, 30000);
     }
   }, [mewingProgress, mewingActive]);
 
@@ -74,32 +73,41 @@ function App() {
     if (totalRizz >= character.cost) {
       setTotalRizz((prev) => prev - character.cost);
       setOwnedCharacters((prev) => [...prev, character.name]);
-      setActiveCharacter(character); // Automatically set the purchased character as active
+      setActiveCharacter(character);
+
+      // Play the clapping sound
+      if (clapSoundRef.current) {
+        clapSoundRef.current.play();
+      }
     } else {
       alert("Not enough Rizz to purchase this character!");
     }
   };
 
-
   const handleSetActiveCharacter = (character) => {
     if (ownedCharacters.includes(character.name)) {
-      setActiveCharacter(character); // Update active character if owned
+      setActiveCharacter(character);
     }
   };
 
   return (
-    <div className="min-h-screen bg-yellow-200 flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold mb-4">Rizz Clicker</h1>
+    <div className="bg-yellow-200 flex items-center justify-between">
+      <div className="w-44 h-screen relative px-16">
+        <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
+      </div>
+      <div className="w-full h-screen text-center">
+        <h1 className="text-4xl font-bold mb-4">Rizz Clicker</h1>
+        <RizzCounter
+          totalRizz={totalRizz}
+          handleClick={handleClick}
+          multiplier={multiplier}
+          activeCharacter={activeCharacter}
+          mewingActive={mewingActive}
+        />
+      </div>
+      <audio ref={clapSoundRef} src={CrowdCheer} preload="auto" />
 
-      <RizzCounter
-        totalRizz={totalRizz}
-        handleClick={handleClick}
-        multiplier={multiplier}
-        activeCharacter={activeCharacter}
-        mewingActive={mewingActive}
-      />
 
-      <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
 
       <CharacterList
         characters={characters}
