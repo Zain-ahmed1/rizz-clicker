@@ -12,7 +12,7 @@ import TylerJ from "./Heads/TylerJ.png"
 
 // Main Screen
 import RizzClickerLogo from "./Rizz_Clicker_Logo.png"
-import RizzCounter from "./Rizz_Counter.png"
+import RizzCounterBar from "./Rizz_Counter.png"
 import Background from "./BG.png"
 import CharBox from "./Box.png"
 import MewingBar from "./Mewing_Bar_BG.webp"
@@ -29,6 +29,18 @@ import TelegramHover from "./Telegram Hover.png"
 import Insta from "./X.png"
 import InstaHover from "./X Hover.png"
 
+// Animated GIF images
+import Ahegao from "./gif/Ahegao.gif"
+import BlushWink from "./gif/Blush Wink.gif"
+import EyebrowRaise from "./gif/Eyebrow Raise.gif"
+import HeartEyes from "./gif/Heart Eyes.gif"
+import KissyFace from "./gif/Kissy Face.gif"
+import NervousWave from "./gif/Nervous Wave.gif"
+import Neutral from "./gif/Neutral.gif"
+import Rizzing from "./gif/Rizzing.gif"
+import SideEyeSmile from "./gif/Side Eye Smile.gif"
+import SuckingOff from "./gif/Sucking Off.gif"
+
 export {
     Bateman,
     Tate,
@@ -41,7 +53,7 @@ export {
     MrBeast,
     TylerJ,
     RizzClickerLogo,
-    RizzCounter,
+    RizzCounterBar,
     Background,
     CharBox,
     MewingBar,
@@ -56,5 +68,14 @@ export {
     Insta,
     InstaHover,
     MewingBarFill,
-
+    Ahegao,
+    BlushWink,
+    EyebrowRaise,
+    HeartEyes,
+    KissyFace,
+    NervousWave,
+    Neutral,
+    Rizzing,
+    SideEyeSmile,
+    SuckingOff,
 }

@@ -4,7 +4,7 @@ import ProgressBar from "./components/ProgressBar";
 import CharacterList from "./components/CharacterList";
 import { characters } from "./Data";
 import CrowdCheer from "/crowd-cheer.mp3"
-import { Background, Dex, DexHover, Divider, Insta, InstaHover, MewingBoard, SocialBar, Telegram, TelegramHover } from "./assets/Rizz Clicker";
+import { Background, Dex, DexHover, Divider, Insta, InstaHover, MewingBoard, RizzClickerLogo, SocialBar, Telegram, TelegramHover } from "./assets/Rizz Clicker";
 
 function App() {
   const [totalRizz, setTotalRizz] = useState(0);
@@ -27,7 +27,7 @@ function App() {
 
     setClicking(true);
     setMewingProgress((prev) =>
-      Math.min(prev + 100 / (120 * 10), 100) // 2 minutes = 100%
+      Math.min(prev + 100 / (10 * 1), 100) // 2 minutes * 5 clicks per sec = 100%
     );
 
     if (clickTimeout.current) clearTimeout(clickTimeout.current);
@@ -51,14 +51,14 @@ function App() {
 
   useEffect(() => {
     if (mewingProgress >= 100 && !mewingActive) {
-      setMultiplier(2);
+      setMultiplier(3);
       setMewingActive(true);
 
       activatorTimeout.current = setTimeout(() => {
         setMultiplier(1);
         setMewingActive(false);
         setMewingProgress(0);
-      }, 30000);
+      }, 1235000);
     }
   }, [mewingProgress, mewingActive]);
 
@@ -93,6 +93,8 @@ function App() {
 
   return (
     <div className="flex items-center justify-between">
+
+      {/* Progress Bar Section */}
       <div className="w-64 h-screen relative flex flex-col justify-evenly items-center" >
         <img src={Divider} alt="Divider" className="absolute h-full -right-2 top-0 z-[2]" />
         {/* Social Banner */}
@@ -120,14 +122,16 @@ function App() {
           <img src={MewingBoard} alt="Board" className="w-full" />
         </div>
       </div>
-      <div className="w-full h-screen text-center" style={{
+
+      {/* Main Screen */}
+      <div className="relative w-full h-screen text-center flex flex-col justify-start items-center" style={{
         backgroundImage: `url(${Background})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)"
       }}>
-        <h1 className="text-4xl font-bold mb-4">Rizz Clicker</h1>
+        <img src={RizzClickerLogo} alt="Rizz Clicker" className="" />
         <RizzCounter
           totalRizz={totalRizz}
           handleClick={handleClick}
@@ -136,7 +140,11 @@ function App() {
           mewingActive={mewingActive}
         />
       </div>
+
+      {/* Sound Tracks */}
       <audio ref={clapSoundRef} src={CrowdCheer} preload="auto" />
+
+      {/* Characters Section */}
       <div className="w-fit relative h-screen">
         {/* Divider */}
         <img src={Divider} alt="Divider" srcset={Divider} className="absolute -left-3 h-full top-0 z-[2]" />
