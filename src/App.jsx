@@ -58,7 +58,7 @@ function App() {
         setMultiplier(1);
         setMewingActive(false);
         setMewingProgress(0);
-      }, 1235000);
+      }, 15000);
     }
   }, [mewingProgress, mewingActive]);
 
