@@ -3,8 +3,11 @@ import RizzCounter from "./components/RizzCounter";
 import ProgressBar from "./components/ProgressBar";
 import CharacterList from "./components/CharacterList";
 import { characters } from "./Data";
-import CrowdCheer from "/crowd-cheer.mp3"
+import CharUnlock from "/unlock_char.mp3";
+import MewingStreak from "/mewing_streak.mp3";
+import AfterCharUnlock from "/after_unlock.mp3"
 import { Background, Dex, DexHover, Divider, Insta, InstaHover, MewingBoard, RizzClickerLogo, SocialBar, Telegram, TelegramHover } from "./assets/Rizz Clicker";
+
 
 function App() {
   const [totalRizz, setTotalRizz] = useState(0);
@@ -20,14 +23,16 @@ function App() {
   const decrementInterval = useRef(null);
 
   // Reference for audio element
-  const clapSoundRef = useRef(null);
+  const CharunlockSound = useRef(null);
+  const AftercharUnlock = useRef(null);
+  const MewingStreakSound = useRef(null);
 
   const handleClick = () => {
     setTotalRizz((prev) => prev + activeCharacter.rizzPerClick * multiplier);
 
     setClicking(true);
     setMewingProgress((prev) =>
-      Math.min(prev + 100 / (10 * 1), 100) // 2 minutes * 5 clicks per sec = 100%
+      Math.min(prev + 100 / (120 * 4), 100) // 2 minutes * 4 clicks per sec = 100%
     );
 
     if (clickTimeout.current) clearTimeout(clickTimeout.current);
@@ -54,6 +59,11 @@ function App() {
       setMultiplier(3);
       setMewingActive(true);
 
+      // Play Mewing Streak sound
+      if (MewingStreakSound.current) {
+        MewingStreakSound.current.play();
+      }
+
       activatorTimeout.current = setTimeout(() => {
         setMultiplier(1);
         setMewingActive(false);
@@ -74,11 +84,18 @@ function App() {
     if (totalRizz >= character.cost) {
       setTotalRizz((prev) => prev - character.cost);
       setOwnedCharacters((prev) => [...prev, character.name]);
-      setActiveCharacter(character);
+      setActiveCharacter((prev) => ({ ...character, level: prev.level + 1 }));
 
       // Play the clapping sound
-      if (clapSoundRef.current) {
-        clapSoundRef.current.play();
+      if (CharunlockSound.current) {
+        CharunlockSound.current.play();
+
+        // Ensure AfterCharUnlock sound plays after the first sound finishes
+        CharunlockSound.current.onended = () => {
+          if (AftercharUnlock.current) {
+            AftercharUnlock.current.play();
+          }
+        };
       }
     } else {
       alert("Not enough Rizz to purchase this character!");
@@ -142,12 +159,14 @@ function App() {
       </div>
 
       {/* Sound Tracks */}
-      <audio ref={clapSoundRef} src={CrowdCheer} preload="auto" />
+      <audio src={CharUnlock} ref={CharunlockSound} preload="auto"></audio>
+      <audio src={AfterCharUnlock} ref={AftercharUnlock} preload="auto"></audio>
+      <audio src={MewingStreak} ref={MewingStreakSound} preload="auto"></audio>
 
       {/* Characters Section */}
       <div className="w-fit relative h-screen">
         {/* Divider */}
-        <img src={Divider} alt="Divider" srcset={Divider} className="absolute -left-3 h-full top-0 z-[2]" />
+        <img src={Divider} alt="Divider" srcSet={Divider} className="absolute -left-3 h-full top-0 z-[2]" />
         <CharacterList
           characters={characters}
           ownedCharacters={ownedCharacters}
