@@ -6,7 +6,7 @@ const ProgressBar = ({ progress, mewingActive }) => {
         <>
             <div className="w-full h-[500px] relative px-2">
                 <img src={MewingBar} alt="Bar" className="w-full h-full" />
-                <div className="absolute top-5 left-16 w-full h-[92%]" style={{
+                <div className="absolute top-5 left-[83.5%] -translate-x-1/2 w-full h-[92%]" style={{
                     clipPath: `inset(${100 - progress}% 0 0 0)`, // Reveal based on progress
                     transition: "clip-path 0.2s ease-in-out", // Smooth transition
                 }}>

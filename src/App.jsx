@@ -95,10 +95,10 @@ function App() {
     <div className="flex items-center justify-between">
 
       {/* Progress Bar Section */}
-      <div className="w-64 h-screen relative flex flex-col justify-evenly items-center" >
+      <div className="w-64 h-screen relative flex flex-col justify-between items-start" >
         <img src={Divider} alt="Divider" className="absolute h-full -right-2 top-0 z-[2]" />
         {/* Social Banner */}
-        <div className="relative w-full px-2 -mt-8">
+        <div className="relative w-full px-2 ">
           <img src={SocialBar} alt="Social banner" className="w-full" />
           <div className="flex gap-x-4 w-full h-full items-center justify-center absolute top-[2px] left-1/2 -translate-x-1/2">
             <div className="flex relative group cursor-pointer">
@@ -118,7 +118,7 @@ function App() {
         {/* Progress Bar */}
         <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
         {/* Streak Board */}
-        <div className="relative w-full">
+        <div className="relative w-full mb-8">
           <img src={MewingBoard} alt="Board" className="w-full" />
         </div>
       </div>

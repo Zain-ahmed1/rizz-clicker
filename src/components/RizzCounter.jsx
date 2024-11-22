@@ -7,21 +7,43 @@ const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewi
 
     useEffect(() => {
         let waveTimeout;
+        let stopWaveTimeout;
 
-        const resetWaveTimeout = () => {
-            clearTimeout(waveTimeout);
-            setWaving(false); // Stop waving when user interacts
-            waveTimeout = setTimeout(() => {
-                setWaving(true); // Start waving after 5 seconds of inactivity
+        const startWaving = () => {
+            setWaving(true); // Start waving
+            stopWaveTimeout = setTimeout(() => {
+                setWaving(false); // Stop waving after 5 seconds
+                resetWaveTimer(); // Restart the inactivity timer
             }, 5000);
         };
 
-        // Initialize the timeout when the component mounts
-        resetWaveTimeout();
+        const resetWaveTimer = () => {
+            clearTimeout(waveTimeout);
+            clearTimeout(stopWaveTimeout);
+            waveTimeout = setTimeout(startWaving, 5000); // Restart inactivity timer
+        };
 
-        // Clean up the timeout when the component unmounts
-        return () => clearTimeout(waveTimeout);
+        // Start the wave timer initially
+        resetWaveTimer();
+
+        // Reset the wave timer on user interaction
+        const handleUserInteraction = () => {
+            clearTimeout(waveTimeout);
+            clearTimeout(stopWaveTimeout);
+            setWaving(false); // Stop waving immediately on interaction
+            resetWaveTimer(); // Restart the timer for inactivity
+        };
+
+        window.addEventListener("click", handleUserInteraction);
+
+        // Cleanup timeouts and event listener on unmount
+        return () => {
+            clearTimeout(waveTimeout);
+            clearTimeout(stopWaveTimeout);
+            window.removeEventListener("click", handleUserInteraction);
+        };
     }, []);
+
 
     const handleClickWithAnimation = () => {
         setIsScaling(true); // Start the scaling animation
