@@ -12,3 +12,5 @@ export const characters = [
     { name: "Patrick Bateman", image: Bateman, rizzPerClick: 20000, cost: 5000000 },
     { name: "Gigachad", image: Gigachad, rizzPerClick: 50000, cost: 50000000 },
 ];
+
+

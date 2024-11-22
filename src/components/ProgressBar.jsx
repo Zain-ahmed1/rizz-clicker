@@ -1,14 +1,20 @@
 import React from "react";
+import { MewingBar, MewingBarFill } from "../assets/Rizz Clicker";
 
 const ProgressBar = ({ progress, mewingActive }) => {
     return (
-        <div className="w-20 -translate-y-1/2 h-[380px] absolute top-1/2 bg-[#695B59] rounded-full overflow-hidden mt-4">
-            <div
-                className={`absolute bottom-0 w-full h-full transition-all ${mewingActive ? "bg-blue-500" : "bg-green-500"
-                    }`}
-                style={{ height: `${progress}%` }}
-            ></div>
-        </div>
+        <>
+            <div className="w-full h-[500px] relative px-2">
+                <img src={MewingBar} alt="Bar" className="w-full h-full" />
+                <div className="absolute top-5 left-16 w-full h-[92%]" style={{
+                    clipPath: `inset(${100 - progress}% 0 0 0)`, // Reveal based on progress
+                    transition: "clip-path 0.2s ease-in-out", // Smooth transition
+                }}>
+                    <img src={MewingBarFill} alt="Filling" className="w-16 opacity-100 h-full" />
+                </div>
+            </div>
+
+        </>
     );
 };
 

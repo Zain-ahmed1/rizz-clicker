@@ -3,7 +3,8 @@ import RizzCounter from "./components/RizzCounter";
 import ProgressBar from "./components/ProgressBar";
 import CharacterList from "./components/CharacterList";
 import { characters } from "./Data";
-import CrowdCheer from "./../public/crowd-cheer.mp3"
+import CrowdCheer from "/crowd-cheer.mp3"
+import { Background, Dex, DexHover, Divider, Insta, InstaHover, MewingBoard, SocialBar, Telegram, TelegramHover } from "./assets/Rizz Clicker";
 
 function App() {
   const [totalRizz, setTotalRizz] = useState(0);
@@ -91,11 +92,41 @@ function App() {
   };
 
   return (
-    <div className="bg-yellow-200 flex items-center justify-between">
-      <div className="w-44 h-screen relative px-16">
+    <div className="flex items-center justify-between">
+      <div className="w-64 h-screen relative flex flex-col justify-evenly items-center" >
+        <img src={Divider} alt="Divider" className="absolute h-full -right-2 top-0 z-[2]" />
+        {/* Social Banner */}
+        <div className="relative w-full px-2 -mt-8">
+          <img src={SocialBar} alt="Social banner" className="w-full" />
+          <div className="flex gap-x-4 w-full h-full items-center justify-center absolute top-[2px] left-1/2 -translate-x-1/2">
+            <div className="flex relative group cursor-pointer">
+              <img src={Insta} alt="Dex" />
+              <img src={InstaHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+            </div>
+            <div className="flex relative group cursor-pointer">
+              <img src={Dex} alt="Dex" />
+              <img src={DexHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+            </div>
+            <div className="flex relative group cursor-pointer">
+              <img src={Telegram} alt="Dex" />
+              <img src={TelegramHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+            </div>
+          </div>
+        </div>
+        {/* Progress Bar */}
         <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
+        {/* Streak Board */}
+        <div className="relative w-full">
+          <img src={MewingBoard} alt="Board" className="w-full" />
+        </div>
       </div>
-      <div className="w-full h-screen text-center">
+      <div className="w-full h-screen text-center" style={{
+        backgroundImage: `url(${Background})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)"
+      }}>
         <h1 className="text-4xl font-bold mb-4">Rizz Clicker</h1>
         <RizzCounter
           totalRizz={totalRizz}
@@ -106,16 +137,17 @@ function App() {
         />
       </div>
       <audio ref={clapSoundRef} src={CrowdCheer} preload="auto" />
-
-
-
-      <CharacterList
-        characters={characters}
-        ownedCharacters={ownedCharacters}
-        totalRizz={totalRizz}
-        setActiveCharacter={handleSetActiveCharacter}
-        handlePurchase={handlePurchase}
-      />
+      <div className="w-fit relative h-screen">
+        {/* Divider */}
+        <img src={Divider} alt="Divider" srcset={Divider} className="absolute -left-3 h-full top-0 z-[2]" />
+        <CharacterList
+          characters={characters}
+          ownedCharacters={ownedCharacters}
+          totalRizz={totalRizz}
+          setActiveCharacter={handleSetActiveCharacter}
+          handlePurchase={handlePurchase}
+        />
+      </div>
     </div>
   );
 }
