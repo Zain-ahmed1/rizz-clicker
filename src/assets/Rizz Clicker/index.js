@@ -9,6 +9,8 @@ import KaiCenat from "./Heads/Kai Cenat.png"
 import McLovin from "./Heads/McLovin.png"
 import MrBeast from "./Heads/Mr Beast.png"
 import TylerJ from "./Heads/TylerJ.png"
+import Grimace from "./Heads/Grimace.png"
+import DoomScroller from "./Heads/DoomScroller.png"
 
 // Main Screen
 import RizzClickerLogo from "./Rizz_Clicker_Logo.png"
@@ -22,6 +24,7 @@ import Multiplier from "./Multiplier.png"
 import SocialBar from "./Social_Bar.png"
 import Divider from "./Vertical_Divider.png"
 import MewingStreak from "./streak-reached.png"
+import Play from "./play.png"
 
 import Dex from "./Dex.png"
 import DexHover from "./Dex Hover.png"
@@ -29,6 +32,13 @@ import Telegram from "./Telegram.png"
 import TelegramHover from "./Telegram Hover.png"
 import Insta from "./X.png"
 import InstaHover from "./X Hover.png"
+
+import AudioBoxPlaying from "./gif/Audio_Box.gif"
+import AudioBoxPaused from "./gif/Audio_Box_Paused.gif"
+import AudioOff from "./audio-off.webp";
+import AudioOn from "./audio-on.webp";
+import NextSong from "./next.webp"
+import PrevSong from "./prev.webp"
 
 // Animated GIF images
 import Ahegao from "./gif/Ahegao.gif"
@@ -53,6 +63,9 @@ export {
     McLovin,
     MrBeast,
     TylerJ,
+    Grimace,
+    DoomScroller,
+    Play,
     RizzClickerLogo,
     RizzCounterBar,
     Background,
@@ -80,4 +93,11 @@ export {
     Rizzing,
     SideEyeSmile,
     SuckingOff,
+    AudioBoxPlaying,
+    AudioBoxPaused,
+    AudioOff,
+    AudioOn,
+    NextSong,
+    PrevSong,
+    
 }

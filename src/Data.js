@@ -1,4 +1,4 @@
-import { Bateman, Drake, Dream, Gigachad, Jonesy, KaiCenat, McLovin, MrBeast, Tate, TylerJ } from "./assets/Rizz Clicker";
+import { Bateman, DoomScroller, Drake, Dream, Gigachad, Grimace, Jonesy, KaiCenat, McLovin, MrBeast, Tate, TylerJ } from "./assets/Rizz Clicker";
 
 export const characters = [
     { name: "Tyler J", image: TylerJ, rizzPerClick: 1, cost: 0, level: 1 },
@@ -11,6 +11,8 @@ export const characters = [
     { name: "Andrew Tate", image: Tate, rizzPerClick: 5000, cost: 500000, level: 1 },
     { name: "Patrick Bateman", image: Bateman, rizzPerClick: 20000, cost: 5000000, level: 1 },
     { name: "Gigachad", image: Gigachad, rizzPerClick: 50000, cost: 100000000, level: 1 },
+    { name: "Grimace", image: Grimace, rizzPerClick: 30000, cost: 100000000000, level: 1 },
+    { name: "Doom Scroller", image: DoomScroller, rizzPerClick: 1000000, cost: 69000000000000, level: 1 },
 ];
 
 

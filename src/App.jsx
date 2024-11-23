@@ -7,8 +7,11 @@ import CharUnlock from "/unlock_char.mp3";
 import MewingStreak from "/mewing_streak.mp3";
 import AfterCharUnlock from "/after_unlock.mp3";
 import { Background, Dex, DexHover, Divider, Insta, InstaHover, MewingBoard, RizzClickerLogo, SocialBar, Telegram, TelegramHover } from "./assets/Rizz Clicker";
+import PlayButton from "./components/PlayButton";
+import SongList from "./components/SongList";
 
 function App() {
+    const [showGame, setshowGame] = useState(false);
     const [totalRizz, setTotalRizz] = useState(0);
     const [activeCharacter, setActiveCharacter] = useState(characters[0]);
     const [ownedCharacters, setOwnedCharacters] = useState([{ name: characters[0].name, level: 1 }]); // Track character levels
@@ -123,65 +126,78 @@ function App() {
     };
 
     return (
-        <div className="flex items-center justify-between">
-            <div className="w-64 h-screen relative flex flex-col justify-between items-start">
-                <img src={Divider} alt="Divider" className="absolute h-full -right-2 top-0 z-[2]" />
-                <div className="relative w-full px-2">
-                    <img src={SocialBar} alt="Social banner" className="w-full" />
-                    <div className="flex gap-x-4 w-full h-full items-center justify-center absolute top-[2px] left-1/2 -translate-x-1/2">
-                        <div className="flex relative group cursor-pointer">
-                            <img src={Insta} alt="Dex" />
-                            <img src={InstaHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
-                        </div>
-                        <div className="flex relative group cursor-pointer">
-                            <img src={Dex} alt="Dex" />
-                            <img src={DexHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
-                        </div>
-                        <div className="flex relative group cursor-pointer">
-                            <img src={Telegram} alt="Dex" />
-                            <img src={TelegramHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+        <>
+
+            {!showGame ? (
+                <PlayButton setshowGame={setshowGame} />
+            ) : null}
+            <div className="flex items-center justify-between">
+                {/* **** Progress Bar **** */}
+                <div className="w-64 h-screen relative flex flex-col justify-between items-start">
+                    <img src={Divider} alt="Divider" className="absolute h-full -right-2 top-0 z-[2]" />
+                    <div className="relative w-full px-2">
+                        <img src={SocialBar} alt="Social banner" className="w-full" />
+                        <div className="flex gap-x-4 w-full h-full items-center justify-center absolute top-[2px] left-1/2 -translate-x-1/2">
+                            <div className="flex relative group cursor-pointer">
+                                <img src={Insta} alt="Dex" />
+                                <img src={InstaHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+                            </div>
+                            <div className="flex relative group cursor-pointer">
+                                <img src={Dex} alt="Dex" />
+                                <img src={DexHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+                            </div>
+                            <div className="flex relative group cursor-pointer">
+                                <img src={Telegram} alt="Dex" />
+                                <img src={TelegramHover} alt="Dex" className="absolute opacity-0 group-hover:opacity-100" />
+                            </div>
                         </div>
                     </div>
+                    <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
+                    <div className="relative w-full mb-8">
+                        <img src={MewingBoard} alt="Board" className="w-full" />
+                    </div>
                 </div>
-                <ProgressBar progress={mewingProgress} mewingActive={mewingActive} />
-                <div className="relative w-full mb-8">
-                    <img src={MewingBoard} alt="Board" className="w-full" />
+
+                {/* *** MAIN SCREEN **** */}
+
+                <div className="relative w-full h-screen text-center flex flex-col justify-start items-center" style={{
+                    backgroundImage: `url(${Background})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)"
+                }}>
+                    <img src={RizzClickerLogo} alt="Rizz Clicker" />
+                    <RizzCounter
+                        totalRizz={totalRizz}
+                        handleClick={handleClick}
+                        multiplier={multiplier}
+                        activeCharacter={activeCharacter}
+                        mewingActive={mewingActive}
+                    />
+
+                    <div className="absolute left-10 bottom-10">
+                        <SongList showGame={showGame}/>
+                    </div>
+                </div>
+
+                <audio src={CharUnlock} ref={CharunlockSound} preload="auto"></audio>
+                <audio src={AfterCharUnlock} ref={AftercharUnlock} preload="auto"></audio>
+                <audio src={MewingStreak} ref={MewingStreakSound} preload="auto"></audio>
+
+                <div className="w-fit relative h-screen">
+                    <img src={Divider} alt="Divider" className="absolute -left-3 h-full top-0 z-[2]" />
+                    <CharacterList
+                        characters={characters}
+                        ownedCharacters={ownedCharacters}
+                        totalRizz={totalRizz}
+                        setActiveCharacter={handleSetActiveCharacter}
+                        handlePurchase={handlePurchase}
+                        activeCharacter={activeCharacter}
+                    />
                 </div>
             </div>
-
-            <div className="relative w-full h-screen text-center flex flex-col justify-start items-center" style={{
-                backgroundImage: `url(${Background})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)"
-            }}>
-                <img src={RizzClickerLogo} alt="Rizz Clicker" />
-                <RizzCounter
-                    totalRizz={totalRizz}
-                    handleClick={handleClick}
-                    multiplier={multiplier}
-                    activeCharacter={activeCharacter}
-                    mewingActive={mewingActive}
-                />
-            </div>
-
-            <audio src={CharUnlock} ref={CharunlockSound} preload="auto"></audio>
-            <audio src={AfterCharUnlock} ref={AftercharUnlock} preload="auto"></audio>
-            <audio src={MewingStreak} ref={MewingStreakSound} preload="auto"></audio>
-
-            <div className="w-fit relative h-screen">
-                <img src={Divider} alt="Divider" className="absolute -left-3 h-full top-0 z-[2]" />
-                <CharacterList
-                    characters={characters}
-                    ownedCharacters={ownedCharacters}
-                    totalRizz={totalRizz}
-                    setActiveCharacter={handleSetActiveCharacter}
-                    handlePurchase={handlePurchase}
-                    activeCharacter={activeCharacter}
-                />
-            </div>
-        </div>
+        </>
     );
 }
 
