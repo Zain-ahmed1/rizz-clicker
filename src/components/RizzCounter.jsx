@@ -15,10 +15,10 @@ const levelImages = [
     Ahegao
 ];
 
-
 const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewingActive }) => {
     const [isScaling, setIsScaling] = useState(false);
     const [currentGif, setCurrentGif] = useState(levelImages[0]); // Default to the first gif
+    const [rizzPerClick, setRizzPerClick] = useState(0); // State to manage Rizz per click
 
     // Handle character click and animation
     const handleClickWithAnimation = () => {
@@ -30,12 +30,13 @@ const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewi
     // Find the active character in the characters array based on the character name
     const character = characters.find((char) => char.name === activeCharacter.name);
 
-    // Update the gif based on the character's purchase level
+    // Update the gif and rizz per click based on the character's purchase level
     useEffect(() => {
         if (character) {
-            // The character's index in the array maps to the levelImages array
             const characterIndex = characters.indexOf(character);
-            setCurrentGif(levelImages[characterIndex]); // Set the corresponding gif
+            setCurrentGif(levelImages[characterIndex]);
+
+            setRizzPerClick(character.rizzPerClick * (character.level || 1)); // Apply level multiplier
         }
     }, [character]); // Re-run when character changes
 
@@ -58,7 +59,9 @@ const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewi
             </div>
             <p className="font-GameFont text-lg pt-2 text-gray-600">
                 Rizz Per Click:{" "}
-                <span className="font-mono font-bold"> {character.rizzPerClick * multiplier} </span>
+                <span className="font-mono font-bold">
+                    {activeCharacter ? activeCharacter.rizzPerClick * multiplier : 0}
+                </span>
             </p>
             <div className="w-96 h-96 p-10 rounded-full flex items-center justify-center drop-shadow-2xl bg-black/20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-16">
                 <img
@@ -71,6 +74,5 @@ const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewi
         </div>
     );
 };
-
 
 export default RizzCounter;
