@@ -56,8 +56,8 @@ const RizzCounter = ({ totalRizz, handleClick, multiplier, activeCharacter, mewi
                     />
                 ) : null}
             </div>
-            <p className="font-GameFont text-base pt-2 text-gray-600">
-                Active Character: {character.name} | Rizz Per Click:{" "}
+            <p className="font-GameFont text-lg pt-2 text-gray-600">
+                Rizz Per Click:{" "}
                 <span className="font-mono font-bold"> {character.rizzPerClick * multiplier} </span>
             </p>
             <div className="w-96 h-96 p-10 rounded-full flex items-center justify-center drop-shadow-2xl bg-black/20 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 mt-16">

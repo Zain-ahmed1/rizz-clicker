@@ -32,7 +32,7 @@ function App() {
 
     setClicking(true);
     setMewingProgress((prev) =>
-      Math.min(prev + 100 / (120 * 4), 100) // 2 minutes * 4 clicks per sec = 100%
+      Math.min(prev + 100 / (150 * 1), 100) // 2 minutes * 4 clicks per sec = 100%
     );
 
     if (clickTimeout.current) clearTimeout(clickTimeout.current);
@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     if (mewingProgress >= 100 && !mewingActive) {
-      setMultiplier(3);
+      setMultiplier(2);
       setMewingActive(true);
 
       // Play Mewing Streak sound
@@ -68,7 +68,7 @@ function App() {
         setMultiplier(1);
         setMewingActive(false);
         setMewingProgress(0);
-      }, 15000);
+      }, 7000);
     }
   }, [mewingProgress, mewingActive]);
 

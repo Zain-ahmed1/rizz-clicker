@@ -21,6 +21,7 @@ import MewingBoard from "./Mewing_Streak.png"
 import Multiplier from "./Multiplier.png"
 import SocialBar from "./Social_Bar.png"
 import Divider from "./Vertical_Divider.png"
+import MewingStreak from "./streak-reached.png"
 
 import Dex from "./Dex.png"
 import DexHover from "./Dex Hover.png"
@@ -59,6 +60,7 @@ export {
     MewingBar,
     MewingBoard,
     Multiplier,
+    MewingStreak,
     SocialBar,
     Divider,
     Dex,
